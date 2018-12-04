@@ -3,11 +3,13 @@ package com.cyren.urlf.phishing.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.cyren.urlf.phishing.data.Person;
 import com.cyren.urlf.phishing.persistence.PersonDB;
+import io.swagger.annotations.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+@Api("/api/v1")
 @Path("/api/v1")
 public class PersonService {
 
@@ -35,6 +37,12 @@ public class PersonService {
 	@Timed
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Get all persons", response = Person.class, consumes="application/json")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "ok")
+
+	})
+
 	public List<Person> getPersons() {
 		return PersonDB.getAll();
 	}
